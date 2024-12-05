@@ -1,8 +1,20 @@
 const { Sequelize } = require('sequelize');
-const config = require('../config/database'); // Database config file
+const config = require('../config/db.config'); // Database config file
 
-const sequelize = new Sequelize(config);
+const sequelize = new Sequelize(
+    config.database,
+    config.username,
+    config.password,
+    {
+        host: config.host,
+        dialect: config.dialect,
+        port: config.port,
+        logging: config.logging,
+    }
+);
+
 const models = {};
+
 
 // Import models
 models.Admin = require('./admin')(sequelize);
@@ -19,6 +31,6 @@ Object.keys(models).forEach((modelName) => {
 });
 
 models.sequelize = sequelize;
-models.Sequelize = Sequelize;
+//models.Sequelize = Sequelize;
 
 module.exports = models;
