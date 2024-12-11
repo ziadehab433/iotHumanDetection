@@ -1,18 +1,5 @@
 const { Admin } = require('../models');
 
-exports.login = async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const admin = await Admin.findOne({ where: { email, password } });
-        if (!admin) {
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-        res.json({ message: 'Login successful', admin });
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error', error });
-    }
-};
-
 exports.createAdmin = async (req, res) => {
     try {
         const newAdmin = await Admin.create(req.body);
@@ -39,5 +26,15 @@ exports.getAllAdmins = async (req, res) => {
         res.json(admins);
     } catch (error) {
         res.status(500).json({ message: 'Failed to fetch admins', error });
+    }
+};
+
+exports.deleteAdmin = async (req, res) => {
+    try {
+        const deleted = await Admin.destroy({ where: { id: req.params.id } });
+        if (!deleted) return res.status(404).json({ message: 'Admin not found' });
+        res.json({ message: 'Admin deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to delete admin', error });
     }
 };

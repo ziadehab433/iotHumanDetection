@@ -1,20 +1,16 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const { sequelize } = require('./app/models');
-const adminRoutes = require('E:/SW2 PROJECT/iotHumanDetection/app/Routes');
-const sensorRoutes = require('E:/SW2 PROJECT/iotHumanDetection/app/Routes');
+const http = require("http")
+const ws = require("ws")
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const authenticateJWT = require("./app/middleware/authenticateJWT")
+const websockets = require("./app/websockets/ws")
 
-app.use(bodyParser.json());
+const server = http.createServer();
+const app = require("./app")
 
-app.use('/api/admin', adminRoutes);
-app.use('/api/sensor', sensorRoutes);
+const wss = new ws.Server({ server })
 
-sequelize
-    .authenticate()
-    .then(() => console.log('Database connected'))
-    .catch((err) => console.log('Error: ' + err));
+server.on("request", app)
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+wss.on('connection', websockets.OnConnection)
+
+server.listen("8080", () => { console.log("server listening on port 8080..." )})

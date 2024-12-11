@@ -2,7 +2,14 @@ const { Sensor } = require('../models');
 
 exports.createSensor = async (req, res) => {
     try {
-        const sensor = await Sensor.create(req.body);
+        const loc = req.body.location.split(",")
+        const sensor = await Sensor.create({ 
+            name: req.body.name,
+            maintenance: req.body.maintenance,
+            location: { type: 'Point', coordinates: loc },
+            admin_id: req.body.admin_id,
+            status: req.body.status
+        });
         res.status(201).json(sensor);
     } catch (error) {
         res.status(500).json({ message: 'Failed to create sensor', error });

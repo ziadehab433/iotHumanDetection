@@ -13,6 +13,7 @@ module.exports = (sequelize) => {
     Sensor.init({
         id: {
             type: DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
             allowNull: false,
         },
