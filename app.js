@@ -16,7 +16,7 @@ const app = express();
 app.use(authenticateJWT)
 app.use(bodyParser.json());
 
-// also the .env file doesnt work
+// .env broken 
 app.use('/api/login', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/sensor', sensorRoutes);
