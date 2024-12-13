@@ -12,15 +12,11 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        timestamp: {
-            type: DataTypes.DATE,
-            allowNull: false,
-        },
     }, {
         sequelize,
         modelName: 'MaintenanceLogs',
         tableName: 'maintenance_logs',
-        timestamps: false,
+        timestamps: true,
     });
 
     return MaintenanceLogs;

@@ -22,15 +22,11 @@ module.exports = (sequelize) => {
             allowNull: false,
             defaultValue: 'update',
         },
-        timestamp: {
-            type: DataTypes.DATE,
-            allowNull: false,
-        },
     }, {
         sequelize,
         modelName: 'AdminLogs',
         tableName: 'admin_logs',
-        timestamps: false,
+        timestamps: true,
     });
 
     return AdminLogs;

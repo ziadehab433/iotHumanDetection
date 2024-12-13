@@ -17,15 +17,11 @@ module.exports = (sequelize) => {
             allowNull: false,
             defaultValue: false,
         },
-        timestamp: {
-            type: DataTypes.DATE,
-            allowNull: false,
-        },
     }, {
         sequelize,
         modelName: 'SensorLogs',
         tableName: 'sensor_logs',
-        timestamps: false,
+        timestamps: true,
     });
 
     return SensorLogs;

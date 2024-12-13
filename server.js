@@ -1,20 +1,50 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const { sequelize } = require('./app/models');
-const adminRoutes = require('E:/SW2 PROJECT/iotHumanDetection/app/Routes');
-const sensorRoutes = require('E:/SW2 PROJECT/iotHumanDetection/app/Routes');
+const http = require("http")
+const ws = require("ws")
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const authenticateJWT = require("./app/middleware/authenticateJWT")
+const websockets = require("./app/websockets/ws")
 
-app.use(bodyParser.json());
+const server = http.createServer();
+const app = require("./app")
 
-app.use('/api/admin', adminRoutes);
-app.use('/api/sensor', sensorRoutes);
+const wss = new ws.Server({ server })
 
-sequelize
-    .authenticate()
-    .then(() => console.log('Database connected'))
-    .catch((err) => console.log('Error: ' + err));
+server.on("request", app)
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+wss.on('connection', websockets.OnConnection)
+
+const mqtt = require("mqtt")
+const client = mqtt.connect("mqtt://localhost:1882")
+
+client.on("connect", () => { 
+    console.log("connected to the mosquitto broker")
+
+    client.subscribe("sensor", (error) => {
+        if (error) { 
+            console.log("error subscribing to topic 'sensor': ", error)
+            return;
+        }
+    })
+})
+
+const { SensorLogs } = require("./app/models");
+client.on("message", async (topic, msg) => { 
+    msgObj = JSON.parse(msg)
+
+    for (let i = 0; i < websockets.wsConn.length; i++) { 
+        if (websockets.wsConn[i].user_id == msgObj.user_id) { 
+            websockets.wsConn[i].ws.send(msg)
+        }
+    }
+
+    try { 
+        await SensorLogs.create({ 
+            sensor_id: msgObj.sensor_id,
+            detected: msgObj.detected,
+        });
+    } catch (err) { 
+        console.log("error could not update sensor logs: ", err)
+    }
+})
+
+server.listen("8080", () => { console.log("server listening on port 8080..." )})

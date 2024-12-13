@@ -1,49 +1,77 @@
-const { Sensor } = require('../models');
+const { Sensor, AdminLogs } = require('../models');
 
 exports.createSensor = async (req, res) => {
     try {
-        const sensor = await Sensor.create(req.body);
-        res.status(201).json(sensor);
+        const loc = req.body.location.split(",")
+        const sensor = await Sensor.create({ 
+            name: req.body.name,
+            maintenance: req.body.maintenance,
+            location: { type: 'Point', coordinates: loc },
+            admin_id: req.body.admin_id,
+            status: req.body.status
+        });
+
+        await AdminLogs.create({ 
+            sensor_id: sensor.id, 
+            admin_id: req.body.admin_id,
+            action: "create"
+        })
+
+        res.status(201).json( { success: true, payload: sensor });
     } catch (error) {
-        res.status(500).json({ message: 'Failed to create sensor', error });
+        res.status(500).json({ success: false, message: 'Failed to create sensor', error });
     }
 };
 
 exports.getSensorById = async (req, res) => {
     try {
         const sensor = await Sensor.findByPk(req.params.id);
-        if (!sensor) return res.status(404).json({ message: 'Sensor not found' });
-        res.json(sensor);
+        if (!sensor) return res.status(404).json({ success: true, message: 'Sensor not found' });
+        res.json({ success: true, payload: sensor });
     } catch (error) {
-        res.status(500).json({ message: 'Failed to fetch sensor', error });
+        res.status(500).json({ success: false, message: 'Failed to fetch sensor', error });
     }
 };
 
 exports.getAllSensors = async (req, res) => {
     try {
         const sensors = await Sensor.findAll();
-        res.json(sensors);
+        res.json({ success: true, payload: sensors });
     } catch (error) {
-        res.status(500).json({ message: 'Failed to fetch sensors', error });
+        res.status(500).json({ success: false, message: 'Failed to fetch sensors', error });
     }
 };
 
 exports.updateSensor = async (req, res) => {
     try {
-        const updated = await Sensor.update(req.body, { where: { id: req.params.id } });
-        if (!updated[0]) return res.status(404).json({ message: 'Sensor not found' });
-        res.json({ message: 'Sensor updated successfully' });
+        const loc = req.body.location.split(",")
+        const updated = await Sensor.update({ 
+            name: req.body.name,
+            maintenance: req.body.maintenance,
+            location: { type: 'Point', coordinates: loc },
+            admin_id: req.body.admin_id,
+            status: req.body.status
+        }, { where: { id: req.params.id } });
+
+        await AdminLogs.create({ 
+            sensor_id: updated[0].id, 
+            admin_id: req.body.admin_id,
+            action: "update"
+        })
+
+        if (!updated[0]) return res.status(404).json({ success: true, message: 'Sensor not found' });
+        res.json({ success: true, message: 'Sensor updated successfully' });
     } catch (error) {
-        res.status(500).json({ message: 'Failed to update sensor', error });
+        res.status(500).json({ success: false, message: 'Failed to update sensor', error });
     }
 };
 
 exports.deleteSensor = async (req, res) => {
     try {
         const deleted = await Sensor.destroy({ where: { id: req.params.id } });
-        if (!deleted) return res.status(404).json({ message: 'Sensor not found' });
-        res.json({ message: 'Sensor deleted successfully' });
+        if (!deleted) return res.status(404).json({ success: true, message: 'Sensor not found' });
+        res.json({ success: true, message: 'Sensor deleted successfully' });
     } catch (error) {
-        res.status(500).json({ message: 'Failed to delete sensor', error });
+        res.status(500).json({ success: false, message: 'Failed to delete sensor', error });
     }
 };
