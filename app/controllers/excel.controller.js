@@ -39,7 +39,7 @@ const downloadMaintenanceLogs = async (req, res) => {
         res.end();
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Error generating Excel file for Maintenance Logs' });
+        res.status(500).json({ success: false, error: 'Error generating Excel file for Maintenance Logs' });
     }
 };
 
@@ -86,7 +86,7 @@ const downloadAdminLogs = async (req, res) => {
         res.end();
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Error generating Excel file for Admin Logs' });
+        res.status(500).json({ success: false, error: 'Error generating Excel file for Admin Logs' });
     }
 };
 
@@ -127,7 +127,7 @@ const downloadSensorLogs = async (req, res) => {
         res.end();
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Error generating Excel file for Sensor Logs' });
+        res.status(500).json({ success: false, error: 'Error generating Excel file for Sensor Logs' });
     }
 };
 
