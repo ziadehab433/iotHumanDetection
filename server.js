@@ -27,14 +27,23 @@ client.on("connect", () => {
     })
 })
 
-client.on("message", (topic, msg) => { 
-    console.log(`recieved msg on topic ${topic}: ${msg}`)
+const { SensorLogs } = require("./app/models");
+client.on("message", async (topic, msg) => { 
     msgObj = JSON.parse(msg)
 
     for (let i = 0; i < websockets.wsConn.length; i++) { 
         if (websockets.wsConn[i].user_id == msgObj.user_id) { 
             websockets.wsConn[i].ws.send(msg)
         }
+    }
+
+    try { 
+        await SensorLogs.create({ 
+            sensor_id: msgObj.sensor_id,
+            detected: msgObj.detected,
+        });
+    } catch (err) { 
+        console.log("error could not update sensor logs: ", err)
     }
 })
 

@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken")
 
 module.exports = (req, res, next) => { 
     if (req.path === '/api/login') { 
-        next();
+        return next();
     }
 
     if (req.header('Authorization') == undefined) { 
@@ -14,6 +14,6 @@ module.exports = (req, res, next) => {
         if (err) { 
             return res.status(401).json( { message: "invalid token" })
         }   
-        next();
+        return next();
     })
 }

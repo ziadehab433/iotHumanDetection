@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require("cors")
 const { sequelize } = require('./app/models');
 
 // routes
@@ -12,6 +13,8 @@ const logsRoutes = require('./app/routes/logs.routes')
 const authenticateJWT = require("./app/middleware/authenticateJWT")
 
 const app = express();
+
+app.use(cors({ origin: "http://localhost:8081" }))
 
 app.use(authenticateJWT)
 app.use(bodyParser.json());
