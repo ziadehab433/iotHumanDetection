@@ -75,3 +75,39 @@ exports.deleteSensor = async (req, res) => {
         res.status(500).json({ success: false, message: 'Failed to delete sensor', error });
     }
 };
+
+
+///////////////
+
+const { sendEmail } = require('../Email/sendingEmail');
+const { Admin } = require('../models'); // Assuming Admin model includes `super` flag
+
+/**
+ * Notify the super admin when a critical event occurs.
+ * @param {number} sensorId - The sensor ID triggering the notification.
+ */
+const notifySuperAdmin = async (sensorId) => {
+    try {
+        // Find the super admin's email
+        const superAdmin = await Admin.findOne({ where: { super: true } });
+        if (!superAdmin) {
+            console.error('No super admin found. Notification skipped.');
+            return;
+        }
+
+        const subject = "Critical Alert: Human Detected";
+        const htmlContent = `
+            <h1>Critical Alert</h1>
+            <p>The sensor with ID <strong>${sensorId}</strong> has detected human activity.</p>
+            <p>Please investigate immediately.</p>
+        `;
+
+        // Send the email to the super admin
+        await sendEmail(superAdmin.email, subject, htmlContent);
+        console.log(`Notification sent to super admin: ${superAdmin.email}`);
+    } catch (error) {
+        console.error('Failed to notify super admin:', error.message);
+    }
+};
+
+module.exports = { notifySuperAdmin };
