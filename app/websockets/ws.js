@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken")
+const redis = require("../redis/redis")
+const { v4: uuid } = require("uuid")
 
 let wsConn = [];
 
@@ -18,6 +20,9 @@ exports.OnConnection = (ws, req) => {
             socket.destroy();
             return
         }   
-        wsConn.push({ user_id: decoded.user_id, ws });
+
+        const connectionId = uuid()
+        redis.setConnection(decoded.user_id.toString(), connectionId)
+        wsConn.push({ connectionId, ws });
     })
 }
