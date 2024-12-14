@@ -54,7 +54,7 @@ exports.updateSensor = async (req, res) => {
         }, { where: { id: req.params.id } });
 
         await AdminLogs.create({ 
-            sensor_id: updated[0].id, 
+            sensor_id: req.params.id, 
             admin_id: req.body.admin_id,
             action: "update"
         })

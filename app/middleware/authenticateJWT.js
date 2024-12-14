@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken")
+const dotenv = require("dotenv")
+dotenv.config()
 
 module.exports = (req, res, next) => { 
     if (req.path === '/api/login') { 
@@ -10,7 +12,7 @@ module.exports = (req, res, next) => {
     }
 
     const token = req.header('Authorization').split(" ")[1]
-    jwt.verify(token, "bruh", (err, decoded) => { 
+    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => { 
         if (err) { 
             return res.status(401).json( { message: "invalid token" })
         }   
