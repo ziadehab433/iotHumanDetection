@@ -67,9 +67,7 @@ client.on("message", async (topic, msg) => {
             <p>Please investigate immediately.</p>
         `;
 
-        console.log("sending emails...")
         await mailer.sendEmail(adminEmail, subject, htmlContent);
-        console.log(`Email notification sent to admin: ${adminEmail}`);
     } catch (err) { 
         console.log("error could not fetch sensor data or send email: ", err)
     }
