@@ -2,7 +2,7 @@ const mqtt = require("mqtt")
 const client = mqtt.connect("mqtt://localhost:1882")
 
 const URL = "http://localhost:8080/api/sensor";
-const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3MzQxMTEzNzUsImV4cCI6MTczNDM3MDU3NX0.RMjmM2t345bv8uNWwqsRXJbjppSqyGuuqUIGyIxIn48"
+const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6MSwic3VwZXIiOnRydWUsImlhdCI6MTczNDE5NzA4OCwiZXhwIjoxNzM0NDU2Mjg4fQ.4qW1nt3-EqotHDCjjiGDuVLG19OYiAGZJ2TWj28YoWI"
 
 client.on("connect", async () => { 
     console.log("connected to the mosquitto broker")
@@ -28,7 +28,11 @@ async function getSensors() {
     })
 
     const data = await res.json()
-    return data.payload
+    if (data.success == true) { 
+        return data.payload
+    } else { 
+        console.log("eror: ", data)
+    }
 }
 
 function sendMessage(client, sensor) { 
