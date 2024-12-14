@@ -22,10 +22,6 @@ module.exports = (sequelize) => {
             allowNull: false,
             unique: true,
         },
-        maintenance: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
         location: {
             type: DataTypes.GEOMETRY,
             allowNull: false,

@@ -5,7 +5,6 @@ exports.createSensor = async (req, res) => {
         const loc = req.body.location.split(",")
         const sensor = await Sensor.create({ 
             name: req.body.name,
-            maintenance: req.body.maintenance,
             location: { type: 'Point', coordinates: loc },
             admin_id: req.body.admin_id,
             status: req.body.status
@@ -47,7 +46,6 @@ exports.updateSensor = async (req, res) => {
         const loc = req.body.location.split(",")
         const updated = await Sensor.update({ 
             name: req.body.name,
-            maintenance: req.body.maintenance,
             location: { type: 'Point', coordinates: loc },
             admin_id: req.body.admin_id,
             status: req.body.status

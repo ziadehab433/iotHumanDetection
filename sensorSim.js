@@ -37,10 +37,12 @@ async function getSensors() {
 
 function sendMessage(client, sensor) { 
     const detect = Math.floor(Math.random() * 2) == 1 ? true : false
+    const needMaintenance = Math.floor(Math.random() * 10) == 6 ? true : false
 
     client.publish('sensor', JSON.stringify({ 
         sensor_id: sensor.id,
         admin_id: sensor.admin_id,
-        detected: detect
+        detected: detect,
+        needMaintenance: needMaintenance
     }))
 }
