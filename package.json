@@ -15,6 +15,7 @@
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
     "mqtt": "^5.10.3",
+    "nodemailer": "^6.9.16",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "redis": "^4.7.0",
