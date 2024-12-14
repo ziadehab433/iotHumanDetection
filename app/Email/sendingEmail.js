@@ -1,41 +1,40 @@
 const nodemailer = require('nodemailer');
-const config = require('../config/emailConfig'); // Ensure this file has SMTP configuration
-
+const config = require('../config/emailConfig');
 /**
- * Sends an email using the configured SMTP server.
+ * Sends an email using the Gmail SMTP server.
  * @param {string} recipient - The recipient's email address.
  * @param {string} subject - The subject of the email.
  * @param {string} htmlContent - The HTML content of the email.
  */
 const sendEmail = async (recipient, subject, htmlContent) => {
     try {
-        // Configure the SMTP transporter
+        // Configure the Gmail SMTP transporter
         const transporter = nodemailer.createTransport({
-            host: config.smtpHost,
-            port: config.smtpPort,
-            secure: false, // Set to `true` for port 465; leave as `false` for other ports
+            service: 'gmail',
             auth: {
-                user: config.smtpUser,
-                pass: config.smtpPassword,
+                user: 'ssh493147@gmail.com', // Replace with your Gmail address
+                pass: 'yarf vpbu evyq orye',       // Replace with your Gmail app password
             },
         });
 
         // Define email options
         const mailOptions = {
-            from: 'user-8f8cdef5-f3e5-41a4-a5af-f603ed302f8a@mailslurp.biz', // Replace with your desired sender information
+            from: 'ssh493147@gmail.com',
             to: recipient,
             subject: subject,
-            html: htmlContent,
+            html: htmlContent, // Use HTML content for the email body
         };
 
         // Send the email
-        await transporter.sendMail(mailOptions);
-        console.log(`Email successfully sent to ${recipient}`);
+        const info = await transporter.sendMail(mailOptions);
+        console.log(`Email successfully sent to ${recipient}: ${info.response}`);
     } catch (error) {
         console.error(`Failed to send email to ${recipient}: ${error.message}`);
         throw error; // Rethrow to allow the calling function to handle it
     }
 };
+
+module.exports = { sendEmail };
 
 /**
  * Notify the super admin when a critical event occurs.
