@@ -63,27 +63,27 @@ client.on("message", async (topic, msg) => {
         console.log("error could not update maintenance logs: ", err)
     }
 
-    //try{ 
-    //    const sensor = await Sensor.findByPk(msgObj.sensor_id, {
-    //        include: {
-    //            model: Admin,
-    //            attributes: ['email', 'name'], 
-    //        },
-    //    });
+    try{ 
+        const sensor = await Sensor.findByPk(msgObj.sensor_id, {
+            include: {
+                model: Admin,
+                attributes: ['email', 'name'], 
+            },
+        });
 
-    //    const adminEmail = sensor.Admin.email;
-    //    const subject = "Critical Alert: Maintenance Needed";
-    //    const htmlContent = `
-    //        <h1>Maintenance Alert</h1>
-    //        <p>The sensor with ID <strong>${msgObj.sensor_id}</strong> requires maintenance.</p>
-    //        <p>Location: ${sensor.location.coordinates.join(", ")}</p>
-    //        <p>Please schedule a maintenance check as soon as possible to ensure continued functionality.</p>
-    //    `;
+        const adminEmail = sensor.Admin.email;
+        const subject = "Critical Alert: Maintenance Needed";
+        const htmlContent = `
+            <h1>Maintenance Alert</h1>
+            <p>The sensor with ID <strong>${msgObj.sensor_id}</strong> requires maintenance.</p>
+            <p>Location: ${sensor.location.coordinates.join(", ")}</p>
+            <p>Please schedule a maintenance check as soon as possible to ensure continued functionality.</p>
+        `;
 
-    //    await mailer.sendEmail(adminEmail, subject, htmlContent);
-    //} catch (err) { 
-    //    console.log("error could not fetch sensor data or send email: ", err)
-    //}
+        await mailer.sendEmail(adminEmail, subject, htmlContent);
+    } catch (err) { 
+        console.log("error could not fetch sensor data or send email: ", err)
+    }
 })
 
 server.listen("8080", () => { console.log("server listening on port 8080..." )})
