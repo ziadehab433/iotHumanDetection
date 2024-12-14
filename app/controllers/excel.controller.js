@@ -1,9 +1,5 @@
 const ExcelJS = require('exceljs');
-const MaintenanceLogs = require('../models/maintenanceLogs'); 
-const AdminLogs = require('../models/adminLogs'); 
-const SensorLogs = require('../models/sensorLogs'); 
-const Sensor = require('../models/sensor'); 
-const Admin = require('../models/admin'); 
+const { Sensor, Admin, SensorLogs, AdminLogs, MaintenanceLogs }  = require("../models")
 
 const downloadMaintenanceLogs = async (req, res) => {
     try {
@@ -93,7 +89,7 @@ const downloadAdminLogs = async (req, res) => {
 const downloadSensorLogs = async (req, res) => {
     try {
         const logs = await SensorLogs.findAll({
-            include: [{ model: Sensor, attributes: ['name'] }], // Include related sensor data
+            include: [{ model: Sensor, as: "sensor", attributes: ['name'] }], // Include related sensor data
         });
 
         const workbook = new ExcelJS.Workbook();
@@ -113,7 +109,7 @@ const downloadSensorLogs = async (req, res) => {
             worksheet.addRow({
                 id: log.id,
                 sensor_id: log.sensor_id,
-                sensor_name: log.Sensor?.name || 'N/A',
+                sensor_name: log.sensor.name,
                 detected: log.detected ? 'Yes' : 'No',
                 createdAt: log.createdAt,
                 updatedAt: log.updatedAt,
