@@ -1,19 +1,12 @@
 const nodemailer = require('nodemailer');
-const config = require('../config/emailConfig');
-/**
- * Sends an email using the Gmail SMTP server.
- * @param {string} recipient - The recipient's email address.
- * @param {string} subject - The subject of the email.
- * @param {string} htmlContent - The HTML content of the email.
- */
+
 const sendEmail = async (recipient, subject, htmlContent) => {
     try {
-        // Configure the Gmail SMTP transporter
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'ssh493147@gmail.com', // Replace with your Gmail address
-                pass: 'yarf vpbu evyq orye',       // Replace with your Gmail app password
+                user: 'ssh493147@gmail.com',
+                pass: 'yarf vpbu evyq orye',
             },
         });
 
@@ -35,11 +28,6 @@ const sendEmail = async (recipient, subject, htmlContent) => {
 
 module.exports = { sendEmail };
 
-/**
- * Notify the super admin when a critical event occurs.
- * @param {number} sensorId - The sensor ID triggering the notification.
- * @param {string} superAdminEmail - The email address of the super admin.
- */
 const notifySuperAdmin = async (sensorId, superAdminEmail) => {
     const subject = "Critical Alert: Human Detected";
     const htmlContent = `
