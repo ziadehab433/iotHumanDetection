@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken")
 const redis = require("../redis/redis")
 const { v4: uuid } = require("uuid")
+const dotenv = require("dotenv")
+dotenv.config()
 
 let wsConn = [];
 
@@ -14,15 +16,15 @@ exports.OnConnection = (ws, req) => {
     }
 
     const token = req.url.split("?")[1].split("=")[1]
-    jwt.verify(token, "bruh", (err, decoded) => { 
+    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => { 
         if (err) { 
-            socket.write("invalid token")
-            socket.destroy();
+            ws.send("{ message: 'invalid token' }")
+            ws.close();
             return
         }   
 
         const connectionId = uuid()
-        redis.setConnection(decoded.user_id.toString(), connectionId)
+        redis.setConnection(decoded.admin_id.toString(), connectionId)
         wsConn.push({ connectionId, ws });
     })
 }
