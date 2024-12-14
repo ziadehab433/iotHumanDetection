@@ -28,11 +28,14 @@ client.on("connect", () => {
 })
 
 const { SensorLogs } = require("./app/models");
+const redis = require("./app/redis/redis")
 client.on("message", async (topic, msg) => { 
     msgObj = JSON.parse(msg)
 
+    const connectionId = await redis.getConnection(msgObj.admin_id.toString());
+
     for (let i = 0; i < websockets.wsConn.length; i++) { 
-        if (websockets.wsConn[i].user_id == msgObj.user_id) { 
+        if (websockets.wsConn[i].connectionId == connectionId) { 
             websockets.wsConn[i].ws.send(msg)
         }
     }
