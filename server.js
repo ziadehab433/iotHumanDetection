@@ -32,7 +32,7 @@ const redis = require("./app/redis/redis")
 client.on("message", async (topic, msg) => { 
     msgObj = JSON.parse(msg)
 
-    const connectionId = await redis.getConnection(msgObj.user_id.toString());
+    const connectionId = await redis.getConnection(msgObj.admin_id.toString());
 
     for (let i = 0; i < websockets.wsConn.length; i++) { 
         if (websockets.wsConn[i].connectionId == connectionId) { 

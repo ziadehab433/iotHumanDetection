@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const adminController = require('../controllers/logs.controller');
+const logsController = require('../controllers/logs.controller');
 
-router.get("/admin", adminController.getAdminLogs)
-router.get("/sensor", adminController.getSensorLogs)
-router.get("/maintenance", adminController.getSensorLogs)
+router.get("/admin", logsController.getAdminLogs)
+router.get("/sensor", logsController.getSensorLogs)
+router.get("/maintenance", logsController.getSensorLogs)
 
 module.exports = router
