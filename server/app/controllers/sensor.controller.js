@@ -19,6 +19,7 @@ exports.createSensor = async (req, res) => {
         res.status(201).json( { success: true, payload: sensor });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Failed to create sensor', error });
+        console.log("err: ", error)
     }
 };
 

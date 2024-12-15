@@ -1,0 +1,66 @@
+
+    .container1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        background-image: url("../../public/ai.png"); 
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: rgba(0, 0, 0, 0.3); 
+        background-blend-mode: overlay; /* دمج الشفافية مع الصورة */
+      }
+     
+      .form1 {
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #dddbdb;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: rgba(255, 255, 255, 0.8); /* إضافة خلفية شفافة لتقوية التباين */
+      }
+      
+    
+      .input-group1 {
+        margin-bottom: 15px;
+      }
+      
+    
+      .input {
+        width: 99%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: black;  
+      }
+      
+      
+      .button1 {
+        width: 100%;
+        padding: 10px;
+        background-color: #0a75e9; 
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      .button1:hover {
+        transform: scale(1.1); /* تأثير عند مرور الماوس */
+      }
+      
+      /* Message Style */
+      .message1 {
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 20px;
+        border:3px solid rgba(0, 0, 0, 0.446);
+        
+    
+      }
+
+  

@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     }
 
     const token = req.header('Authorization').split(" ")[1]
-    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => { 
+    jwt.verify(token, "bruh", (err, decoded) => { 
         if (err) { 
             return res.status(401).json( { message: "invalid token" })
         }   

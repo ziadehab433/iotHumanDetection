@@ -1,0 +1,58 @@
+.welcome-container {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0f4c75, #3282b8);
+    color: #ffffff;
+  }
+  .pp{
+    color:#0787dc
+  }
+  
+  .welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+  }
+  
+  .welcome-card {
+    background-color: #1b262c;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.064);
+  }
+  
+  .welcome-card h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .welcome-card p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .welcome-button {
+    background-color: #1d94e3;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+  }
+  
+  
+  .welcome-button:hover {
+    background-color: #3f7e85;
+    transform: scale(1.1);
+  }
+.help_page_button{
+    color: #58736c;
+    border: none;
+    
+}
+  

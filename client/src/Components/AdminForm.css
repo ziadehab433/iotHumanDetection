@@ -1,0 +1,88 @@
+/* تنسيق الحاوية */
+.form-container2 {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9; /* خلفية رمادية فاتحة */
+    display: flex;
+    flex-direction: column; /* تنظيم العناصر بشكل عمودي */
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* الارتفاع الكامل لتوسيط الفورم عمودياً */
+  }
+  
+  /* العنوان */
+  .form-heading2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333; /* لون النص الغامق */
+    margin-bottom: 20px;
+
+  }
+  
+  /* صندوق الفورم */
+  .form-box2 {
+    width: 400px;
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px; 
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); 
+  }
+  
+  /* باقي التنسيقات للفورم */
+  .form-group2 {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .form-label2 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333; /* لون النص الغامق */
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .form-input2 {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid #586bca; /* إطار أزرق افتراضي */
+    background-color: #fff; /* خلفية بيضاء */
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .form-input2:focus {
+    border-color: #4a67f5; /* إطار أزرق عند التركيز */
+    box-shadow: 0 0 8px rgba(74, 103, 245, 0.5); /* ظل أزرق خفيف عند التركيز */
+  }
+  
+  .form-button2 {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #586bca; /* لون الزر الأزرق */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .form-button2:hover {
+    background-color: #3e5ad1; /* لون أزرق أغمق عند تمرير الماوس */
+  }
+  
+  .error-text2 {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+  }
+  

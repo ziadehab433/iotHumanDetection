@@ -16,7 +16,7 @@ exports.OnConnection = (ws, req) => {
     }
 
     const token = req.url.split("?")[1].split("=")[1]
-    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => { 
+    jwt.verify(token, "bruh", (err, decoded) => { 
         if (err) { 
             ws.send("{ message: 'invalid token' }")
             ws.close();

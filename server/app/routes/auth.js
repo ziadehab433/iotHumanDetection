@@ -12,10 +12,11 @@ router.post('/', async (req, res) => {
         if (!admin) { 
             return res.status(401).json({ success: false, message: 'Invalid credentials' })
         }
-        const token = jwt.sign({ admin_id: admin.id, super: admin.super }, process.env.SECRET_KEY, { expiresIn: '72h' })
+        const token = jwt.sign({ admin_id: admin.id, super: admin.super }, "bruh", { expiresIn: '72h' })
         res.json({ success: true, payload: {token} })
     } catch (error) { 
         res.status(500).json({ success: false, message: 'Internal server error ', error })
+        console.log(error)
     }
 })
 
