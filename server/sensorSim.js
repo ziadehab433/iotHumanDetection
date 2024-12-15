@@ -36,7 +36,6 @@ async function getSensors() {
 }
 
 function sendMessage(client, sensor) { 
-    console.log("haga")
     const detect = Math.floor(Math.random() * 2) == 1 ? true : false
     const needMaintenance = Math.floor(Math.random() * 10) == 6 ? true : false
 
