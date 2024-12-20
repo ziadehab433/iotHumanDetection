@@ -5,13 +5,13 @@ const sendEmail = async (recipient, subject, htmlContent) => {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'ssh493147@gmail.com',
-                pass: 'arhj iuuz uiny ylrq',
+                user: 'your email',
+                pass: 'your password',
             },
         });
 
         const mailOptions = {
-            from: 'ssh493147@gmail.com',
+            from: 'your email',
             to: recipient,
             subject: subject,
             html: htmlContent, // Use HTML content for the email body
